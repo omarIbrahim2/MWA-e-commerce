@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->foreignId('item_name')->constrained();
-            $table->string('code')->primary();
+            $table->string('item_name');
+            $table->foreign('item_name' , 'item_name')->references('name')->on('items');
+            $table->string('code');
+            $table->primary('code' , 'code');
             $table->string('name');
             $table->text('desc')->nullable();
             $table->string('color')->nullable();
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('cc')->nullable();
             $table->float('weight' , 3 , 2 , true)->nullable();
             $table->float('price' , 6 , 2 , true);
-            $table->float('percentage' , 1 , 3 , true);
+            $table->float('percentage' , 2 , 2 , true);
             $table->string('img')->nullable();
             $table->timestamps();
         });

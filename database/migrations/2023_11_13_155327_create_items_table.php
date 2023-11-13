@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->foreignId('cat_name')->constrained();
-            $table->string('name')->primary();
+            $table->string('cats_name');
+            $table->foreign('cats_name' , 'cats_name')->references('name')->on('cats');
+            $table->string('name');
+            $table->primary('name' , 'name');
             $table->string('img')->nullable();
             $table->timestamps();
         });
