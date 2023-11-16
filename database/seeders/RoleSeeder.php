@@ -22,7 +22,11 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'User'
+            'name' => 'Customer'
+        ]);
+
+        Role::create([
+            'name' => 'Merchant'
         ]);
     }
 }

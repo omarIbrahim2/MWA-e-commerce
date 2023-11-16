@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    use HasFactory;
+    use HasFactory , HasUser;
     protected $guarded = ['id','created_at','updated_at'];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+   
 }
