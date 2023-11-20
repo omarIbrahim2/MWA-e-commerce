@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('cart_product', function (Blueprint $table) {
             $table->id();
-             $table->string('product_code');
-            $table->foreign('product_code' , 'code_pro')->references('code')->on('products');
+            $table->foreignId('product_id')->constrained();
             $table->foreignId('cart_id')->constrained();
             $table->timestamps();
         });

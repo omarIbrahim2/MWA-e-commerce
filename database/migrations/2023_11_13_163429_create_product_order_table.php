@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_order', function (Blueprint $table) {
             $table->id();
-            $table->string('product_code');
-            $table->foreign('product_code' , 'code_p')->references('code')->on('products');
+            $table->foreignId('product_id')->constrained();
             $table->foreignId('order_id')->constrained();
             $table->timestamps();
         });

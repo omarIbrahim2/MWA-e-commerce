@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
  */
-class CustomerFactory extends Factory
+class AdminFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,8 @@ class CustomerFactory extends Factory
     {
         return [
             'user_id' => User::factory()->state(function(array $attributes , $User){
-               return ['role_id' => 3];
+                return ['role_id' => 2];
             }),
-
         ];
     }
 }

@@ -10,8 +10,10 @@ class Item extends Model
     use HasFactory;
     protected $guarded = ['created_at','updated_at'];
 
+ 
+
     public function cat(){
-        return $this->belongsTo(Cat::class);
+        return $this->belongsTo(Cat::class );
     }
 
     public function products(){

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cats', function (Blueprint $table) {
-            $table->string('name');
-            $table->primary('name' , 'name');
+            $table->id();
+            $table->string('catName');
             $table->string('img')->nullable();
             $table->timestamps();
         });
