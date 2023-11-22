@@ -17,7 +17,7 @@ class CatFactory extends Factory
     public function definition(): array
     {
         return [
-            'catName'=>fake('ar')->name(),
+            'catName'=>fake('ar')->catchPhrase(),
         ];
     }
 }

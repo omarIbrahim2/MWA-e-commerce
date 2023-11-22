@@ -17,7 +17,7 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'itemName'=>fake('ar')->name(),
+            'itemName'=>fake('ar')->bs(),
             
         ];
     }
