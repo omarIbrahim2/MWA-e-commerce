@@ -1,6 +1,6 @@
 <?php
 
-namespace core\Interfaces;
+namespace Core\Interfaces;
 
 
 interface FileServiceInterface{

@@ -7,15 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CatAddReq;
 use App\Http\Resources\CategoryResource;
+use App\Traits\HandleUpload;
+use Core\Repositories\CatRepo;
+use Core\Services\FileService;
 
 class CategoryController extends Controller
 {
+    use HandleUpload;
+
+    private $catRepo , $fileService ;
+    public function __construct(FileService $fileService , CatRepo $catRepo)
+    {
+        $this->fileService = $fileService;
+        $this->catRepo = $catRepo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Cat::select('id','catName')->get();
+        $categories = $this->catRepo->getCats();
         return CategoryResource::collection($categories);
     }
 
@@ -24,11 +35,9 @@ class CategoryController extends Controller
      */
     public function store(CatAddReq $request)
     {
-       
         $data  = $request->validated();
-
-        
-        Cat::create($data);
+        $data['img'] = $this->handleUpload($request , $this->fileService , null , 'Cats');
+        $this->catRepo->createCat($data);
 
         return response()->json([
             'success' => 'Category added successfully'

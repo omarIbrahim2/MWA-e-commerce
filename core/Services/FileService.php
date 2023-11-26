@@ -1,6 +1,6 @@
 <?php
 
-namespace core\Services;
+namespace Core\Services;
 
 use Illuminate\Support\Facades\Storage;
 use core\Interfaces\FileServiceInterface;
