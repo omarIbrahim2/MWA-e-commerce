@@ -3,7 +3,7 @@
 namespace Core\Services;
 
 use Illuminate\Support\Facades\Storage;
-use core\Interfaces\FileServiceInterface;
+use Core\Interfaces\FileServiceInterface;
 
 class FileService implements FileServiceInterface{
     

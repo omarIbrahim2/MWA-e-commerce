@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Cat;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CatAddReq;
-use App\Http\Resources\CategoryResource;
 use App\Traits\HandleUpload;
+use Illuminate\Http\Request;
 use Core\Repositories\CatRepo;
 use Core\Services\FileService;
+use App\Http\Requests\CatAddReq;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
