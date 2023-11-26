@@ -11,7 +11,7 @@ class CatAddReq extends BaseCustomRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class CatAddReq extends BaseCustomRequest
     {
         return [
             "catName"=> "string|required|max:50",
-            "img" =>"image|mimes:jpg,png,jpeg"
+            "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];
     }
 }
