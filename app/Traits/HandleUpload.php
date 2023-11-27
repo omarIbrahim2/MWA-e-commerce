@@ -5,27 +5,22 @@ namespace App\Traits;
 
 trait HandleUpload{
 
-  public function handleUpload($request , $fileService , $model = null , $path){
+  public function handleUpload($request , $fileService , $currentImage = null , $path){
       
        if (! $request->has('img')) {
-           if ($model!= null) {
-              return substr($model->image , 8 );
+           if ($currentImage!= null) {
+              return substr($currentImage , 8 );
            }
-           return;
+           return null;
        }
 
-       if ($model != null) {
-       
-            $deletedPath = substr($model->image , 8 );
-             
+       if ($currentImage != null) {
+            $deletedPath = substr($currentImage , 8 );
            $fileService->DeleteFile($deletedPath);
        }
-
-
          
        $fileService->setPath($path);
        $fileService->setFile($request['img']);
-
        return $fileService->uploadFile();
 
   }

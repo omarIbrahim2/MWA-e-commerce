@@ -3,7 +3,6 @@
 namespace App\Http\Requests\CategoryRequests;
 
 use App\Http\Requests\BaseCustomRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 class CatUpdateReq extends BaseCustomRequest
 {
@@ -23,7 +22,6 @@ class CatUpdateReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "id" => "required|exists:cats,id",
             "catName"=> "string|required|max:50",
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];

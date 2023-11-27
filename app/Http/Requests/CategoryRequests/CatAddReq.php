@@ -3,10 +3,6 @@
 namespace App\Http\Requests\CategoryRequests;
 
 use App\Http\Requests\BaseCustomRequest;
-<<<<<<< HEAD:app/Http/Requests/CatAddReq.php
-=======
-use Illuminate\Foundation\Http\FormRequest;
->>>>>>> 04be39cd423c659d9aa798d27e7146a4d149ef87:app/Http/Requests/CategoryRequests/CatAddReq.php
 
 class CatAddReq extends BaseCustomRequest
 {
