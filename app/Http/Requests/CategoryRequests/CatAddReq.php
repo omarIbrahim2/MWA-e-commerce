@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\CategoryRequests;
 
+use App\Http\Requests\BaseCustomRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CatAddReq extends BaseCustomRequest
