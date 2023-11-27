@@ -7,7 +7,7 @@ trait HandleUpload{
 
   public function handleUpload($request , $fileService , $model = null , $path){
       
-       if (! $request->has('image')) {
+       if (! $request->has('img')) {
            if ($model!= null) {
               return substr($model->image , 8 );
            }
@@ -24,7 +24,7 @@ trait HandleUpload{
 
          
        $fileService->setPath($path);
-       $fileService->setFile($request['image']);
+       $fileService->setFile($request['img']);
 
        return $fileService->uploadFile();
 
