@@ -7,8 +7,9 @@ use App\Traits\HandleUpload;
 use Illuminate\Http\Request;
 use Core\Repositories\CatRepo;
 use Core\Services\FileService;
-use App\Http\Requests\CatAddReq;
+use App\Http\Requests\CategoryRequests\CatAddReq;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequests\CatUpdateReq;
 use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
@@ -55,9 +56,22 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CatUpdateReq $request, $catId)
     {
-        //
+        $data = $request->validated();
+        $cat = $this->catRepo->getCatById( $catId );
+        $data['img'] = $this->handleUpload($request ,$this->fileService , $cat , 'Cats');
+        
+        $action = $cat->update( $data );
+        if ($action) {
+            return response()->json([
+                'success' => 'Category updated successfully'
+            ]);
+        }
+
+        return response()->json([
+            'fail' => "something wrong happened"
+        ]);
     }
 
     /**

@@ -15,7 +15,17 @@ class CatRepo{
         return $categories;
     }
 
+    public function getCatById($id){
+        $cat = Cat::findOrFail($id);
+        return $cat;
+    }
+
     public function createCat($data){
         return Cat::create($data);
     }
+
+    // public function updateCat($id){
+    //     $cat = $this->getCatById($id);
+    //     return $cat->update($id);
+    // }
 }
