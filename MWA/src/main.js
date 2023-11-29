@@ -1,10 +1,15 @@
-import './assets/main.css'
+import './assets/admin/css/all.css'
+import './assets/admin/css/tempusdominus-bootstrap-4.css'
+import './assets/admin/css/adminlte.css'
+import './assets/admin/css/rtl/bootstrap.css'
+import './assets/admin/css/custom.css'
+
 
 import { createApp } from 'vue'
-import Dashboard from './components/Dashboard.vue'
+import App from './App.vue'
 import router from './router'
 
-const app = createApp(Dashboard)
+const app = createApp(App)
 
 app.use(router)
 

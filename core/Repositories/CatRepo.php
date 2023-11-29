@@ -24,8 +24,8 @@ class CatRepo{
         return Cat::create($data);
     }
 
-    // public function updateCat($id){
-    //     $cat = $this->getCatById($id);
-    //     return $cat->update($id);
-    // }
+    public function updateCat($data , $cat){
+
+        return $cat->update($data);
+    }
 }
