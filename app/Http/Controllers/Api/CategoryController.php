@@ -77,8 +77,21 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($catId)
     {
-        //
+        $cat = $this->catRepo->getCatById( $catId );
+        $action = $cat->delete();
+        if ($action) {
+            if ($cat->img) {
+                $this->fileService->DeleteFile($cat->img);
+            }
+            return response()->json([
+                'success' => 'Category deleted successfully'
+            ]);
+        }
+
+        return response()->json([
+            'fail' => "something wrong happened"
+        ]);
     }
 }
