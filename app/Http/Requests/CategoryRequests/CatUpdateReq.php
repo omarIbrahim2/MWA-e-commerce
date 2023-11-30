@@ -22,7 +22,7 @@ class CatUpdateReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "id" => "required",
+            
             "catName"=> "string|required|max:50",
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];

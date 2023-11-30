@@ -12,6 +12,7 @@ class ItemUpdateReq extends BaseCustomRequest
      */
     public function authorize(): bool
     {
+    
         return true;
     }
 
@@ -23,8 +24,7 @@ class ItemUpdateReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "id"=> "required|numeric",
-            "cat_id"=> "required|numeric",
+            "cat_id"=> "required|exists:cats,id",
             "itemName"=> "string|required|max:50",
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];

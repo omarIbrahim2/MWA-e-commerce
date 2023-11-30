@@ -3,7 +3,6 @@
 namespace App\Http\Requests\ItemRequests;
 
 use App\Http\Requests\BaseCustomRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 class ItemAddReq extends BaseCustomRequest
 {
@@ -23,7 +22,7 @@ class ItemAddReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "cat_id"=> "required|numeric",
+            "cat_id"=> "required|numeric|exists:cats,id",
             "itemName"=> "string|required|max:50",
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];

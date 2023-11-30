@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-    use HasFactory;
+    use HasFactory , GetImagePath;
     protected $guarded = ['id','created_at','updated_at'];
 
  
