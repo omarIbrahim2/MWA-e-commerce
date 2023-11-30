@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\CategoryRequests;
+namespace App\Http\Requests\ItemRequests;
 
 use App\Http\Requests\BaseCustomRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CatUpdateReq extends BaseCustomRequest
+class ItemUpdateReq extends BaseCustomRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,9 @@ class CatUpdateReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "id" => "required",
-            "catName"=> "string|required|max:50",
+            "id"=> "required|numeric",
+            "cat_id"=> "required|numeric",
+            "itemName"=> "string|required|max:50",
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];
     }

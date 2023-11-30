@@ -14,4 +14,17 @@ class ItemRepo{
         $items = Item::with('cat')->select('id' , 'cat_id' , 'itemName' , 'img')->paginate(10);
         return $items;
     }
+
+    public function getItemById($id){
+        $item = Item::findOrFail($id);
+        return $item;
+    }
+    public function createItem($data){
+        return Item::create($data);
+    }
+
+    public function updateItem($data , $item){
+
+        return $item->update($data);
+    }
 }

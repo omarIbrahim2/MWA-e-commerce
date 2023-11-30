@@ -61,7 +61,6 @@ class CategoryController extends Controller
         $data = $request->validated();
         $cat = $this->catRepo->getCatById( $catId );
         $data['img'] = $this->handleUpload($request ,$this->fileService , $cat->img , 'Cats');
-        
         $action = $this->catRepo->updateCat($data,$cat);
         if ($action) {
             return response()->json([
