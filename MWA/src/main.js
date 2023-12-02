@@ -16,9 +16,10 @@ import './assets/admin/js/demo.js'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import {Bootstrap4Pagination} from 'laravel-vue-pagination'
 
 const app = createApp(App)
 
 app.use(router)
-
+app.component('Pagination' , Bootstrap4Pagination)
 app.mount('#app')

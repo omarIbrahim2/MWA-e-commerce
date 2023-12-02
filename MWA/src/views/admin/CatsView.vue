@@ -26,6 +26,10 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                  <Pagination :data="Cats" @pagination-change-page="getCats" class="mt-5" ></Pagination>
+                </div>
+               
               </div>
 
   </div>
@@ -41,8 +45,8 @@
     setup(){
         const Cats = ref([])
  
-         const getCats = ()=>{
-            axious.get('http://localhost:8000/api/categories').then(res =>{
+         const getCats = (page = 1)=>{
+            axious.get('http://localhost:8000/api/categories?page=' + page).then(res =>{
                 
                 
                 Cats.value = res.data
