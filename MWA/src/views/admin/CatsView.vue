@@ -15,7 +15,7 @@
                   <tbody>
                     <tr v-for="cat in Cats.data">
                       <td></td>
-                      <td></td>
+                      <td><img :src="cat.image" style="width: 100px;"  alt="image"/></td>
                       <td>{{ cat.name }}</td>
                       <td>
                         <div class="d-flex">
