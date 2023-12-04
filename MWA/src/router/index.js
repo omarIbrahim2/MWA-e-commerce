@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '../components/Dashboard.vue'
+import CatsView from '../views/admin/CatsView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard
-    },
+      name: 'cats',
+      path: '/cats',
+      component:CatsView
+    }
+    
     
   ]
 })

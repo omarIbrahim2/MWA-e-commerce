@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->catRepo->getCats();
+        $categories = $this->catRepo->getCats(3);
         return CategoryResource::collection($categories);
     }
 

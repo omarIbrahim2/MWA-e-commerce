@@ -10,8 +10,8 @@ class CatRepo{
         $this->fileService = $fileService;
     }
 
-    public function getCats(){
-        $categories = Cat::select('id','catName')->get();
+    public function getCats($pages){
+        $categories = Cat::select('id','catName' , 'img')->paginate($pages);
         return $categories;
     }
 
