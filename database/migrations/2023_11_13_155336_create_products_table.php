@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('cc')->nullable();
             $table->float('weight' , 3 , 2 , true)->nullable();
             $table->float('price' , 6 , 2 , true);
-            $table->float('percentage' , 2 , 2 , true);
+            $table->float('percentage' , 2 , 2 , true)->nullable();
             $table->string('img')->nullable();
             $table->timestamps();
         });
