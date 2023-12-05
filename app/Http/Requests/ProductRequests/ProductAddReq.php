@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\ProductRequests;
 
-use Illuminate\Support\Str;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseCustomRequest;
 
-class ProductAddReq extends FormRequest
+
+class ProductAddReq extends BaseCustomRequest
 {
     /**
      * Determine if the user is authorized to make this request.
