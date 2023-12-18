@@ -52,7 +52,7 @@ abstract class UserEntity{
     }
 
     public function setToken($user , $userName) {
-        $user->createToken("$userName Token")->plainTextToken;
+       return $user->createToken("$userName Token")->plainTextToken;
     }
 
     public function getAttributes(){

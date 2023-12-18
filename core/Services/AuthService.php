@@ -24,29 +24,25 @@ class AuthService{
         return Auth::logout();
     }
 
-    public function loginUser(Request $request , $credentials){
-        $request->validate([
-            "email" => "required|email",
-            "password" => 'required',
-         ]);
-         $user = User::where('email', $request->email)->first();
- 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-        $this->ensureIsNotRateLimited($request);  
-        $remember_me = $request->has('remember_me') ? true : false;
-        if (!Auth::attempt($credentials , $remember_me)) {     
-            RateLimiter::hit($this->throttleKey($request->email , $request->ip)); 
+    public function loginUser(UserInterface $userInterface , UserEntity $user){
+       
+         $userModel = $userInterface->getUser($user->getEmail());
+        if (!Auth::attempt([$user->getEmail() , $user->getPassword()])) {     
             throw ValidationException::withMessages([
                 "email" =>'auth.failed',
             ]);
         }
-        RateLimiter::clear($this->throttleKey($request->email , $request->ip));
 
-        return $user->setToken($user , $user->name);
+
+        return $user->setToken($userModel , $userModel->name);
+    }
+
+    public function validate(Request $request){
+
+        return $request->validate([
+            "email" => "required|email",
+            "password" => 'required',
+         ]);
     }
 
     public function AdminCredentials(Request $request){
