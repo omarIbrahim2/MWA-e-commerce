@@ -22,11 +22,11 @@ class AuthRegisterReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "role_id" =>"required|numaric",
+            "role_id" =>"required",
             "name" => "required|string|min:3|max:50",
             "email"=> "required|email",
             "password"=> "required|confirmed|min:6",
-            "phone"=> "numaric|min:11",
+            "phone"=> "min:11",
             "address"=> "string",
         ];
     }

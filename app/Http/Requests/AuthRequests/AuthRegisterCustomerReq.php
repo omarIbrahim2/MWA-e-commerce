@@ -22,7 +22,7 @@ class AuthRegisterCustomerReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "user_id"=> "numaric|exists:users,id",
+            "user_id"=> "exists:users,id",
         ];
     }
 }

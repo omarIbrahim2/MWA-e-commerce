@@ -22,7 +22,7 @@ class AuthRegisterMerchantReq extends BaseCustomRequest
     public function rules(): array
     {
         return [
-            "user_id"=> "numaric|exists:users,id",
+            "user_id"=> "exists:users,id",
             'img' => 'image|mimes:jpg,png,jpeg,webp|max:2048|',
         ];
     }
