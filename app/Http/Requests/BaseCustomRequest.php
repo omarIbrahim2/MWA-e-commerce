@@ -12,7 +12,7 @@ class BaseCustomRequest extends FormRequest{
         if ($this->expectsJson()) {
         
             
-            $res = response()->json([
+            return response()->json([
                 'message' => "Validation Errors",
                 'status' => false,
                 'errors' => $validator->errors()->getMessages(),

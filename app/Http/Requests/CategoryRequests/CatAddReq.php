@@ -26,4 +26,15 @@ class CatAddReq extends BaseCustomRequest
             "img" =>"image|mimes:jpg,png,jpeg,webp"
         ];
     }
+
+    public function messages(){
+
+        return [
+          'catName.required' => 'حقل الاسم مطلوب..!!',
+          'catName.max:50' => 'الاسم يجب ان لايزيد عن 50 حرف..!!',
+          'catName.string' => 'الاسم يجب ان يكون نص..!!',
+          'img' => 'الحقل الصورة يجب ان يكون ملف من نوع (jpg) (jpeg) (png)',
+          
+        ];
+    }
 }
