@@ -26,16 +26,22 @@ class AuthService{
 
     public function loginUser(UserInterface $userInterface , UserEntity $user){
        
-         $userModel = $userInterface->getUser($user->getEmail());
-        if (!Auth::attempt([$user->getEmail() , $user->getPassword()])) {     
+        $userModel = $userInterface->getUser($user->getEmail());
+
+        if (!Auth::attempt(["email" => $user->getEmail() ,"password" => $user->getPassword()], $userModel->role_id == $user->getRoleId())) {     
             throw ValidationException::withMessages([
-                "email" =>'auth.failed',
+                "email" =>'البيانات قد تكون غير صحيحة..!!',
             ]);
         }
 
+        $token = $user->setToken($userModel , $userModel->name);
 
-        return $user->setToken($userModel , $userModel->name);
+        return response()->json([
+            'token' => $token,
+        ] , 201);
     }
+
+    
 
     public function validate(Request $request){
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 abstract class UserEntity{
     use HandleUpload;
     protected $schema = array() , $status = false , $path ;
+    protected $ROLE_ID = 0;
     public function __construct($attributes)
     {
         if (isset($attributes['id'])) {
@@ -67,4 +68,14 @@ abstract class UserEntity{
     {
         return $this->schema['password'];
     }
+
+
+    public function getRoleId(){
+
+        return $this->ROLE_ID;
+    }
+
+
+
+
 }

@@ -8,7 +8,11 @@ use App\Models\Customer;
 use App\Models\Merchant;
 use App\Traits\HandleUpload;
 use Illuminate\Http\Request;
+use Core\Services\AuthService;
 use Core\Services\FileService;
+use Core\Repositories\AdminRepo;
+use Core\Factories\EntitiesFactory;
+use Illuminate\Support\Facades\App;
 use App\Http\Requests\AuthRequests\AuthRegisterReq;
 use App\Http\Requests\AuthRequests\AuthRegisterCustomerReq;
 use App\Http\Requests\AuthRequests\AuthRegisterMerchantReq;
@@ -16,9 +20,31 @@ use App\Http\Requests\AuthRequests\AuthRegisterMerchantReq;
 class AuthController extends Controller
 {
     use HandleUpload;
-    private $productRepo , $fileService ;
-    public function __construct( FileService $fileService ){
+    private $productRepo , $fileService  , $authservice;
+    public function __construct( FileService $fileService , AuthService $authService ){
         $this->fileService = $fileService ;
+        $this->authservice = $authService;
+    }
+
+
+    public function AdminLogin(Request $request){
+          
+        $cred = $this->authservice->validate($request);
+
+        $Entity = EntitiesFactory::createEntity($cred , 'admin');
+      
+        $this->authservice->loginUser(new AdminRepo , $Entity);
+    }
+
+
+    public function SuperAdminLogin(Request $request){
+        
+        $cred = $this->authservice->validate($request);
+
+        $Entity = EntitiesFactory::createEntity($cred , 'superadmin');
+      
+        $this->authservice->loginUser(new AdminRepo , $Entity);
+
     }
 
     // public function register(AuthRegisterReq $request , AuthRegisterMerchantReq $merReq , AuthRegisterCustomerReq $cusReq){
