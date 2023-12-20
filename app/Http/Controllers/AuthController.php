@@ -27,11 +27,25 @@ class AuthController extends Controller
         
     }
 
-    public function register(AuthRegisterReq $request){
-        $data = $request->validated();
+    public function adminRegister( Request $req ){
+        $data = $req->validate([
+            "role_id" =>"required",
+            "name" => "required|string|min:3|max:50",
+            "email"=> "required|email",
+            "password"=> "required|confirmed|min:6",
+            "phone"=> "min:11",
+            "address"=> "string",
+        ]);
         $Entity = EntitiesFactory::createEntity($data , 'admin');
-         $Entity->setPassword($data['password']);
-         return $this->authservice->registerUser($Entity , new AdminRepo);
+        $Entity->setPassword($data['password']);
+        $this->authservice->registerUser($Entity , new AdminRepo);
+        $admin = User::where('email' , $Entity->getEmail())->first();
+        $adminId = $admin->id;
+        $adminData = $this->authservice->adminValidate($req);
+        $adminData['user_id'] = $adminId;
+        dd($adminData) ;
+        $admin->admin()->create($adminData);
+        return ;
     }
 
 

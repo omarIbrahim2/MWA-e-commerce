@@ -1,6 +1,7 @@
 <?php
 namespace Core\Services;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,13 +16,28 @@ class AuthService{
     
     public function registerUser(UserEntity $user , UserInterface $userInterface){
         $createdUser = $userInterface->create($user->getAttributes());
-        dd($createdUser);
         $token = $user->setToken($createdUser , $createdUser['name']);
         return response()->json([
-            'massage' => 'تم تسجيل الدخول بنجاح ..!!',
+            'massage' => 'تم تسجيل الحساب بنجاح ..!!',
             'token' => $token,
             'user' => $createdUser
         ]);
+    }
+
+    public function insertIntoAdminTable(Request $request , $adminId) {
+        $data = $request->validate([
+            'user_id' => 'required|numeric'
+        ]);
+        $data['user_id'] = $adminId;
+        return  Admin::create($data);
+    }
+
+    public function adminValidate(Request $request ){
+        $data = $request->validate([
+            'user_id' => 'required|numeric'
+        ]);
+        
+        return $data;
     }
 
     public function logout(Request $request){

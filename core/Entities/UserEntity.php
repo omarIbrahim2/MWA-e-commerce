@@ -59,7 +59,6 @@ abstract class UserEntity{
         return $this->schema['password'];
     }
 
-
     public function getRoleId(){
 
         return $this->ROLE_ID;
