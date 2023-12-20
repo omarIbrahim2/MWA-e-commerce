@@ -29,9 +29,9 @@ class AuthController extends Controller
 
     public function register(AuthRegisterReq $request){
         $data = $request->validated();
-        $data['password'] =  bcrypt($data["password"]);
         $Entity = EntitiesFactory::createEntity($data , 'admin');
-        return $this->authservice->registerUser($Entity , new AdminRepo);
+         $Entity->setPassword($data['password']);
+         return $this->authservice->registerUser($Entity , new AdminRepo);
     }
 
 
