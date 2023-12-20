@@ -28,12 +28,9 @@ class AuthController extends Controller
 
 
     public function AdminLogin(Request $request){
-          
         $cred = $this->authservice->validate($request);
-
         $Entity = EntitiesFactory::createEntity($cred , 'admin');
-      
-        $this->authservice->loginUser(new AdminRepo , $Entity);
+        return $this->authservice->loginUser(new AdminRepo , $Entity);
     }
 
 
@@ -43,10 +40,15 @@ class AuthController extends Controller
 
         $Entity = EntitiesFactory::createEntity($cred , 'superadmin');
       
-        $this->authservice->loginUser(new AdminRepo , $Entity);
+       return $this->authservice->loginUser(new AdminRepo , $Entity);
 
     }
 
+    public function logout(Request $request) {
+        
+        return $this->authservice->logout($request);
+    }
+    
     // public function register(AuthRegisterReq $request , AuthRegisterMerchantReq $merReq , AuthRegisterCustomerReq $cusReq){
     //     $data = $request->validated();
     //     $data["password"] = bcrypt($data["password"]);

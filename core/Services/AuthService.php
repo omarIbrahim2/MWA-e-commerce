@@ -18,16 +18,23 @@ class AuthService{
         return $createdUser ;
     }
 
-    public function logout(){
-        $user = Auth::user();
-        Auth::tokens()->where($user->id, 'tokenable_Id')->delete();
-        return Auth::logout();
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'success' => "تم الخروج..!!"
+        ]);
     }
 
     public function loginUser(UserInterface $userInterface , UserEntity $user){
        
-        $userModel = $userInterface->getUser($user->getEmail());
-
+        try {
+            $userModel = $userInterface->getUser($user->getEmail());
+        } catch (\Exception $e) {
+             return response()->json([
+                'email' => $e->getMessage()
+             ]);
+        }
+    
         if (!Auth::attempt(["email" => $user->getEmail() ,"password" => $user->getPassword()], $userModel->role_id == $user->getRoleId())) {     
             throw ValidationException::withMessages([
                 "email" =>'البيانات قد تكون غير صحيحة..!!',
@@ -38,6 +45,7 @@ class AuthService{
 
         return response()->json([
             'token' => $token,
+            'user' => $userModel,
         ] , 201);
     }
 

@@ -21,7 +21,9 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::controller(AuthController::class)->group(function () {
+    Route::post("login/superAdmin" , "SuperAdminLogin");
     Route::post("login/admin" , "AdminLogin");
+    Route::post("logout" , "logout")->middleware('auth:sanctum');
 });
 
 

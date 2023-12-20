@@ -12,21 +12,11 @@ abstract class UserEntity{
     protected $ROLE_ID = 0;
     public function __construct($attributes)
     {
-        if (isset($attributes['id'])) {
-            $this->schema['id'] = $attributes['id'];
-        }elseif (isset($attributes['name'])) {
-            $this->schema['name'] = $attributes['name'];
-        }elseif (isset($attributes['phone'])) {
-            $this->schema['phone'] = $attributes['phone'];
-        }elseif (isset($attributes['address'])) {
-            $this->schema['address'] = $attributes['address'];
-        }elseif (isset($attributes['email'])) {
-            $this->schema['email'] = $attributes['email'];
-        }elseif (isset($attributes['role_id'])) {
-            $this->schema['role_id'] = $attributes['role_id'];
-        }elseif (isset($attributes['password'])) {
-            $this->schema['password'] = $attributes['password'];
-        }
+        $keysAttributes = array_keys($attributes);
+        array_map(function($key , $value){
+            $this->schema[$key] = $value;
+        } , $keysAttributes , $attributes);
+
     }
 
     public function changeStatus(){
