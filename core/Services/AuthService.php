@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
 class AuthService{
+    
     public function registerUser(UserEntity $user , UserInterface $userInterface){
         $createdUser = $userInterface->create($user->getAttributes());
-        $user->setToken($createdUser , $createdUser['name']);
-        return $createdUser ;
+        dd($createdUser);
+        $token = $user->setToken($createdUser , $createdUser['name']);
+        return response()->json([
+            'massage' => 'تم تسجيل الدخول بنجاح ..!!',
+            'token' => $token,
+            'user' => $createdUser
+        ]);
     }
 
     public function logout(Request $request){

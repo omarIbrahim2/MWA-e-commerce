@@ -21,9 +21,17 @@ class AuthController extends Controller
 {
     use HandleUpload;
     private $productRepo , $fileService  , $authservice;
-    public function __construct( FileService $fileService , AuthService $authService ){
+    public function __construct( FileService $fileService , AuthService $authService){
         $this->fileService = $fileService ;
         $this->authservice = $authService;
+        
+    }
+
+    public function register(AuthRegisterReq $request){
+        $data = $request->validated();
+        $data['password'] =  bcrypt($data["password"]);
+        $Entity = EntitiesFactory::createEntity($data , 'admin');
+        return $this->authservice->registerUser($Entity , new AdminRepo);
     }
 
 
