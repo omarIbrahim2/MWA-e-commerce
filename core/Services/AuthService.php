@@ -24,22 +24,6 @@ class AuthService{
         ]);
     }
 
-    public function insertIntoAdminTable(Request $request , $adminId) {
-        $data = $request->validate([
-            'user_id' => 'required|numeric'
-        ]);
-        $data['user_id'] = $adminId;
-        return  Admin::create($data);
-    }
-
-    public function adminValidate(Request $request ){
-        $data = $request->validate([
-            'user_id' => 'required|numeric'
-        ]);
-        
-        return $data;
-    }
-
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
         return response()->json([
