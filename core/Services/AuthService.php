@@ -1,28 +1,39 @@
 <?php
 namespace Core\Services;
 
-use App\Models\Admin;
-use App\Models\User;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Core\Entities\UserEntity;
+use Core\Repositories\AdminRepo;
 use Core\Interfaces\UserInterface;
+use Core\Factories\EntitiesFactory;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\AuthRequests\AuthRegisterReq;
 
 class AuthService{
     
     public function registerUser(UserEntity $user , UserInterface $userInterface){
         $createdUser = $userInterface->create($user->getAttributes());
-        $token = $user->setToken($createdUser , $createdUser['name']);
+        return $createdUser;
+    }
+
+    public function Registering(Request $request , $userType , $relation , $repo){
+        $data = $request->validated();
+        $Entity = EntitiesFactory::createEntity($data , $userType);
+        $Entity->setPassword($data['password']);
+        $user = $this->registerUser($Entity , $repo);
+        $token = $user->createToken("$user->name Token")->plainTextToken;
+        $user->$relation()->create();
         return response()->json([
             'massage' => 'تم تسجيل الحساب بنجاح ..!!',
             'token' => $token,
-            'user' => $createdUser
+            'user' => $user,
         ]);
     }
+    
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();

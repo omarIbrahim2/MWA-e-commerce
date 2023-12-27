@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\App;
 use App\Http\Requests\AuthRequests\AuthRegisterReq;
 use App\Http\Requests\AuthRequests\AuthRegisterCustomerReq;
 use App\Http\Requests\AuthRequests\AuthRegisterMerchantReq;
+use Core\Repositories\CustomerRepo;
 
 class AuthController extends Controller
 {
@@ -28,15 +29,12 @@ class AuthController extends Controller
     }
 
     public function adminRegister( AuthRegisterReq $request ){
-        $data = $request->validated();
-        $Entity = EntitiesFactory::createEntity($data , 'admin');
-        $Entity->setPassword($data['password']);
-        $this->authservice->registerUser($Entity , new AdminRepo);
-        $admin = User::where('email' , $Entity->getEmail())->first();
-        $admin->admin()->create();
-        return ;
+       return $this->authservice->Registering($request , 'admin' , 'admin' , new AdminRepo);
     }
 
+    public function customerRegister( AuthRegisterReq $request ){
+        return $this->authservice->Registering($request , 'customer' , 'customer' , new CustomerRepo);
+     }
 
     public function AdminLogin(Request $request){
         $cred = $this->authservice->validate($request);
