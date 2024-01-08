@@ -35,19 +35,27 @@ abstract class UserEntity{
 
     public function UploadImage( FileService $fileService ,$request){
         $imagePath =  $this->handleUpload($request , $fileService , null , $this->path);
-        $this->schema['image'] = $imagePath;
+        $this->schema['img'] = $imagePath;
     }
 
-    public function setImage($ImageName){
-        $this->schema['image'] = $ImageName;
+    public function setImage(){
+        $this->schema['img'] = $this->getImage(); 
     }
 
     public function setToken($user , $userName) {
        return $user->createToken("$userName Token")->plainTextToken;
     }
 
+    public function setRoleId(){
+        return $this->schema['role_id'] = $this->getRoleId();
+    }
+
     public function getAttributes(){
         return $this->schema;
+    }
+
+    function getImage()  {
+        return $this->schema['img'];
     }
   
     public function getEmail(){

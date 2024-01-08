@@ -2,6 +2,8 @@
 namespace Core\Services;
 
 
+use App\Models\User;
+use App\Models\Merchant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Core\Entities\UserEntity;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\AuthRequests\AuthRegisterReq;
+use App\Http\Requests\AuthRequests\AuthRegisterMerchantReq;
 
 class AuthService{
     
@@ -33,7 +36,24 @@ class AuthService{
             'user' => $user,
         ]);
     }
-    
+
+    public function merchantRegistering(Request $request , $userType , $relation , $repo , FileService $fileService){
+        $data = $request->validated();
+        $Entity = EntitiesFactory::createEntity($data , $userType);
+        $Entity->setRoleId();
+        $Entity->setPassword($data['password']);
+        $Entity->UploadImage($fileService ,$request);
+        $data['img'] = $Entity->setImage($data['img']);
+        $user = $this->registerUser($Entity , $repo);
+        $token = $user->createToken("$user->name Token")->plainTextToken;
+        $user->$relation()->create();
+        return response()->json([
+            'massage' => 'تم تسجيل الحساب بنجاح ..!!',
+            'token' => $token,
+            'user' => $user,
+        ]);
+    }
+
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();

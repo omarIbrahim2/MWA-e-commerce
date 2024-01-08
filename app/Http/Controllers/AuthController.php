@@ -17,6 +17,7 @@ use App\Http\Requests\AuthRequests\AuthRegisterReq;
 use App\Http\Requests\AuthRequests\AuthRegisterCustomerReq;
 use App\Http\Requests\AuthRequests\AuthRegisterMerchantReq;
 use Core\Repositories\CustomerRepo;
+use Core\Repositories\MerchantRepo;
 
 class AuthController extends Controller
 {
@@ -28,20 +29,38 @@ class AuthController extends Controller
         
     }
 
+    //Registering
+
     public function adminRegister( AuthRegisterReq $request ){
        return $this->authservice->Registering($request , 'admin' , 'admin' , new AdminRepo);
     }
 
     public function customerRegister( AuthRegisterReq $request ){
         return $this->authservice->Registering($request , 'customer' , 'customer' , new CustomerRepo);
-     }
+    }
 
+    public function merchantRegister( AuthRegisterMerchantReq $request , FileService $fileService ){
+        return $this->authservice->merchantRegistering($request , 'merchant' , 'merchant' , new MerchantRepo , $fileService);
+    }
+
+    // Logining
     public function AdminLogin(Request $request){
         $cred = $this->authservice->validate($request);
         $Entity = EntitiesFactory::createEntity($cred , 'admin');
         return $this->authservice->loginUser(new AdminRepo , $Entity);
     }
 
+    public function customerLogin(Request $request){
+        $cred = $this->authservice->validate($request);
+        $Entity = EntitiesFactory::createEntity($cred , 'customer');
+        return $this->authservice->loginUser(new CustomerRepo , $Entity);
+    }
+
+    public function merchantLogin(Request $request){
+        $cred = $this->authservice->validate($request);
+        $Entity = EntitiesFactory::createEntity($cred , 'merchant');
+        return $this->authservice->loginUser(new MerchantRepo , $Entity);
+    }
 
     public function SuperAdminLogin(Request $request){
         
@@ -53,35 +72,11 @@ class AuthController extends Controller
 
     }
 
+    //Loging out
+
     public function logout(Request $request) {
         
         return $this->authservice->logout($request);
     }
-    
-    // public function register(AuthRegisterReq $request , AuthRegisterMerchantReq $merReq , AuthRegisterCustomerReq $cusReq){
-    //     $data = $request->validated();
-    //     $data["password"] = bcrypt($data["password"]);
-    //     $user = User::create($data);
-    //     $data["token"] = $user->createToken("UserToken")->plainTextToken;
-    //     $customerRole = Role::where("name" , "Customer")->first() ;
-    //     $customerRoleId = $customerRole->id ;
-    //     $merchantRole =Role::where("name" , "Merchant")->first() ;
-    //     $merchantRoleId = $merchantRole->id ;
-    //     if($user->role_id == $customerRoleId ){
-    //         $customerData = $cusReq->validated();
-    //         $customerData['user_id'] = $user->id ;
-    //         $user->customer()->create($customerData);
-    //         return response()->json($data, 201);
-    //     }elseif ($user->role_id ==  $merchantRoleId) {
-    //         $merchantData = $merReq->validated(); 
-    //         $merchantData['user_id'] = $user->id ;
-    //         $merchantData['img'] = $this->handleUpload($merReq , $this->fileService , null , 'Merchants');
-    //         $user->merchant()->create($merchantData);
-    //         return response()->json($data, 201);
-    //     };
-
-    // }
-
-
     
 }

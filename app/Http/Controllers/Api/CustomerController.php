@@ -4,20 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Core\Repositories\CustomerRepo;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersType\CustomerResource;
-use App\Models\Cat;
+
 
 class CustomerController extends Controller
 {
+    public $customerRepo;
+
+    public function __construct(CustomerRepo $customerRepo)
+    {
+        $this->customerRepo = $customerRepo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::with("user")
-        ->paginate(10);
-
+        $customers = $this->customerRepo->getUsers(10);
         return CustomerResource::collection($customers);
     }
 
@@ -41,9 +46,9 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request , Customer $customer)
     {
-        //
+       
     }
 
     /**

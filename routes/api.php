@@ -23,8 +23,11 @@ use App\Http\Controllers\AuthController;
 Route::controller(AuthController::class)->group(function () {
     Route::post("register/admin" , "adminRegister");
     Route::post("register/customer" , "customerRegister");
-    Route::post("login/superAdmin" , "SuperAdminLogin");
-    Route::post("login/admin" , "AdminLogin");
+    Route::post("register/merchant" , "merchantRegister");
+    Route::post("login/superAdmin" , "SuperAdminLogin")->middleware('superadmin');
+    Route::post("login/admin" , "AdminLogin")->middleware('admin');
+    Route::post("login/customer" , "customerLogin")->middleware('customer');
+    Route::post("login/merchant" , "merchantLogin")->middleware('merchant');
     Route::post("logout" , "logout")->middleware('auth:sanctum');
 });
 

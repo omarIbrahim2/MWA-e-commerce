@@ -24,6 +24,12 @@ class AuthRegisterMerchantReq extends BaseCustomRequest
         return [
             "user_id"=> "exists:users,id",
             'img' => 'image|mimes:jpg,png,jpeg,webp|max:2048|',
+            "role_id" =>"required",
+            "name" => "required|string|min:3|max:50",
+            "email"=> "required|email",
+            "password"=> "required|confirmed|min:6",
+            "phone"=> "min:11",
+            "address"=> "string",
         ];
     }
 }

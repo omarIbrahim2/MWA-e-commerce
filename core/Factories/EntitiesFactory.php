@@ -10,11 +10,14 @@ class EntitiesFactory{
     public static function createEntity($attributes , $entity ){
         if ($entity == 'admin') {
             return new AdminEntity($attributes);
-        }elseif ($entity == 'customer') {
+        }
+        if ($entity == 'customer') {
             return new CustomerEntity($attributes);
-        }elseif ($entity == 'merchant') {
+        }
+        if ($entity == 'merchant') {
             return new MerchantEntity($attributes);
-        }elseif ($entity == "superadmin"){
+        }
+        if ($entity == "superadmin"){
             return new SuperAdminEntity($attributes);
         }
     }
